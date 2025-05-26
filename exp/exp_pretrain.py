@@ -48,11 +48,15 @@ class UP2ME_exp_pretrain(object):
         args = self.args
 
         if flag == 'val':
-            shuffle_flag = True; drop_last = False; batch_size = args.batch_size;
+            shuffle_flag = True
+            drop_last = False
+            batch_size = args.batch_size
             #To save time, do not go over all possible window lengths in validation, just evaluate some percentiles from N_min to N_max
             candidate_patch_num = np.arange(args.min_patch_num, self.args.max_patch_num + 1, max(1, (self.args.max_patch_num - self.args.min_patch_num + 1) // self.args.valid_sep_point))
         else:
-            shuffle_flag = True; drop_last = False; batch_size = args.batch_size;
+            shuffle_flag = True
+            drop_last = False
+            batch_size = args.batch_size
             if candidate_patch_num is None:
                 candidate_patch_num = np.arange(args.min_patch_num, self.args.max_patch_num + 1)
 
@@ -61,8 +65,8 @@ class UP2ME_exp_pretrain(object):
             loaders = []
             loader_patch_num = []
             
-            #generate one dataloader for each length, this is our original implementation to get results in the paper, but is memory-inefficient
-            #we will implement a more efficient version of the sampling process
+            # generate one dataloader for each length, this is our original implementation to get results in the paper, but is memory-inefficient
+            # we will implement a more efficient version of the sampling process
             for patch_num in candidate_patch_num:
                 if args.data_format == 'csv':
                     dataset = Pretrain_Dataset_csv(
@@ -93,7 +97,7 @@ class UP2ME_exp_pretrain(object):
 
             return loaders, loader_patch_num #return a list of data loaders, each loader corresponds to a patch_num
         
-        else: #efficient implementation, only keep one copy of the data and sample desired lengths from it
+        else: # efficient implementation, only keep one copy of the data and sample desired lengths from it
             if args.data_format == 'csv':
                 dataset = Pretrain_Dataset_csv_efficient(
                     root_path=args.root_path,

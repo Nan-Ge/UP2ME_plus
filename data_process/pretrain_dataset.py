@@ -154,14 +154,13 @@ class Pretrain_Dataset_npy(Dataset):
         return ts_x, channel_idx
 
 #<---------------------efficient dataset(loader) maintain only one data copy and sample the desired window length on fly----------------------->
-
 class Pretrain_Dataset_csv_efficient(Dataset):
     '''
     An efficient dataloader, instead of maintaining one dataloder for each window length, we maintain only one copy of data and samples the desired length
-
     '''
     def __init__(self, root_path, data_path='ETTh1.csv', flag='train',
                  data_split=[0.7, 0.1, 0.2], scale=True, scale_statistic=None):
+        
         assert flag in ['train', 'test', 'val']
         type_map = {'train': 0, 'val': 1, 'test': 2}
         self.set_type = type_map[flag]
