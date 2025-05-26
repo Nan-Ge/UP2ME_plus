@@ -20,9 +20,16 @@ class UP2ME_forecaster(nn.Module):
 
         # load pre-trained model
         self.pretrained_model = UP2ME_model(
-            data_dim=pretrain_args['data_dim'], patch_size=pretrain_args['patch_size'],\
-            d_model=pretrain_args['d_model'], d_ff = pretrain_args['d_ff'], n_heads=pretrain_args['n_heads'], \
-            e_layers=pretrain_args['e_layers'], d_layers = pretrain_args['d_layers'], dropout=pretrain_args['dropout'])
+            data_dim=pretrain_args['data_dim'], 
+            patch_size=pretrain_args['patch_size'],
+            d_model=pretrain_args['d_model'], 
+            d_ff = pretrain_args['d_ff'], 
+            n_heads=pretrain_args['n_heads'],
+            e_layers=pretrain_args['e_layers'], 
+            d_layers = pretrain_args['d_layers'], 
+            dropout=pretrain_args['dropout']
+            )
+        
         self.load_pre_trained_model()
         
         # if fine-tune, add new layers
